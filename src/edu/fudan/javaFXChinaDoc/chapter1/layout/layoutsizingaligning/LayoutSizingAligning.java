@@ -110,10 +110,11 @@ public class LayoutSizingAligning extends Application {
         lvList.setMaxHeight(Control.USE_PREF_SIZE);
         lvList.setPrefWidth(150.0);
 
-        border.setLeft(lvList);    
-        border.setRight(createButtonColumn());  
+        border.setLeft(lvList);
+//        border.setRight(createButtonColumn());
+        border.setCenter(createButtonColumn());  // 由于中间的容器会缩放，因此控件宽度随着容器的变宽而变宽
         border.setBottom(createButtonRow());  // Uses a tile pane for sizing
-//        border.setBottom(createButtonBox());  // Uses an HBox, no sizing 
+//        border.setBottom(createButtonBox());  // Uses an HBox, no sizing
 
         return border;
     }
@@ -202,7 +203,7 @@ public class LayoutSizingAligning extends Application {
  * Creates a row of buttons and makes them all the same size.
  */
     private TilePane createButtonRow() {
-        
+        // 注意HBox并不能让所有Button的宽度一样，TilePane可以让所有Button（其本身可以改变大小）等宽
         // Let buttons grow, otherwise they will be different sizes based
         // on the length of the label
         btnApply.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
@@ -212,10 +213,10 @@ public class LayoutSizingAligning extends Application {
         TilePane tileButtons = new TilePane(Orientation.HORIZONTAL);
         tileButtons.setPadding(new Insets(20, 10, 20, 0));
         tileButtons.setHgap(10.0);
-        tileButtons.setVgap(8.0); // In case window is reduced and buttons 
+        tileButtons.setVgap(8.0); // In case window is reduced and buttons
                                   // require another row
         tileButtons.getChildren().addAll(btnApply, btnContinue, btnExit);
-        
+
         return tileButtons;
     }
  
@@ -226,7 +227,7 @@ public class LayoutSizingAligning extends Application {
         
         HBox hbButtons = new HBox();
         hbButtons.setSpacing(10);
-        hbButtons.setPadding(new Insets(20, 10, 20, 0)); 
+        hbButtons.setPadding(new Insets(20, 10, 20, 0));
         hbButtons.getChildren().addAll(btnApply, btnContinue, btnExit);
         
         return hbButtons;
